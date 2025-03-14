@@ -244,14 +244,17 @@ void drawRays2D()
           if (lineH > 320)
           {
                lineH = 320;
-          }                                 // line height and limit
+          } // line height and limit
           int lineOff = 160 - (lineH >> 1); // line offset
 
-          glLineWidth(100);
-          glBegin(GL_LINES);
-          glVertex2i(r * 8 + 530, lineOff);
-          glVertex2i(r * 8 + 530, lineOff + lineH);
-          glEnd(); // draw vertical wall
+          // --- Dibuja la columna de muro como un quad sólido ---
+          int columnX = r * 8 + 530;
+          glBegin(GL_QUADS);
+          glVertex2i(columnX, lineOff);
+          glVertex2i(columnX, lineOff + lineH);
+          glVertex2i(columnX + 8, lineOff + lineH);
+          glVertex2i(columnX + 8, lineOff);
+          glEnd();
 
           ra = FixAng(ra - 1); // go to next ray
      }
