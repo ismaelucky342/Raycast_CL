@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include <math.h>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 #define mapX  8      //map width
 #define mapY  8      //map height
@@ -109,7 +112,7 @@ void drawRays2D()
   int lineH = (mapS*320)/(disH); if(lineH>320){ lineH=320;}                     //line height and limit
   int lineOff = 160 - (lineH>>1);                                               //line offset
   
-  glLineWidth(8);glBegin(GL_LINES);glVertex2i(r*8+530,lineOff);glVertex2i(r*8+530,lineOff+lineH);glEnd();//draw vertical wall  
+  glLineWidth(100);glBegin(GL_LINES);glVertex2i(r*8+530,lineOff);glVertex2i(r*8+530,lineOff+lineH);glEnd();//draw vertical wall  
 
   ra=FixAng(ra-1);                                                              //go to next ray
  }
@@ -119,7 +122,7 @@ void drawRays2D()
 void init()
 {
  glClearColor(0.3,0.3,0.3,0);
- gluOrtho2D(0,1024,510,0);
+ gluOrtho2D(0, 1024, 510, 0);
  px=150; py=400; pa=90;
  pdx=cos(degToRad(pa)); pdy=-sin(degToRad(pa)); 
 }
@@ -136,9 +139,10 @@ void display()
 int main(int argc, char* argv[])
 { 
  glutInit(&argc, argv);
+ glEnable(GL_DEPTH_TEST);
  glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
  glutInitWindowSize(1024,510);
- glutCreateWindow("YouTube-3DSage");
+ glutCreateWindow("example1");
  init();
  glutDisplayFunc(display);
  glutKeyboardFunc(Buttons);
